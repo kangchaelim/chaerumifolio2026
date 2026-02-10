@@ -1,0 +1,19 @@
+:root {
+  --font-en: "Polymath Demo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-kr: "Pretendard", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+body {
+  font-family: var(--font-kr);
+}
+
+.en {
+  font-family: var(--font-en);
+}
+
+/* 공통: 모든 페이지 콘텐츠 좌우 여백 (서브페이지에서 main 등에 적용) */
+.layout-padding {
+  padding-inline: 100px;
+}

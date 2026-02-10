@@ -1,0 +1,9 @@
+{
+  "name": "chaerumifolio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npx serve .",
+    "build": "echo \"Static portfolio site\""
+  }
+}
