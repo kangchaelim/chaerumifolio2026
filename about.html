@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MY STORY · Chaerum Portfolio</title>
+    <link rel="stylesheet" href="./style/common.css" />
+    <link rel="stylesheet" href="./assets/css/fonts.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body class="body--sub">
+    <div class="page page--sub">
+      <header class="page__header page__header--mystory layout-padding">
+        <a href="index.html" class="mystory-menu-link">MENU -</a>
+      </header>
+
+      <div class="mystory-layout layout-padding" id="mystoryLayout">
+        <div class="mystory-stack-column">
+          <aside class="mystory-stack" aria-hidden="true">
+            <div class="stack-board" id="stackBoard" data-step="0">
+            <!-- piece 0: My Approach - 2x2 O (주황) · 바닥 왼쪽 -->
+            <div class="stack-block stack-block--orange" data-piece="0" style="--row: 5; --col: 2;"></div>
+            <div class="stack-block stack-block--orange" data-piece="0" style="--row: 5; --col: 3;"></div>
+            <div class="stack-block stack-block--orange" data-piece="0" style="--row: 6; --col: 2;"></div>
+            <div class="stack-block stack-block--orange" data-piece="0" style="--row: 6; --col: 3;"></div>
+            <!-- piece 1: How I Think - Z (하늘색) · 맨 좌측(col1~3), 세 번째로 떨어짐 -->
+            <div class="stack-block stack-block--blue" data-piece="1" style="--row: 3; --col: 1;"></div>
+            <div class="stack-block stack-block--blue" data-piece="1" style="--row: 3; --col: 2;"></div>
+            <div class="stack-block stack-block--blue" data-piece="1" style="--row: 4; --col: 2;"></div>
+            <div class="stack-block stack-block--blue" data-piece="1" style="--row: 4; --col: 3;"></div>
+            <!-- piece 2: How I Work - 세로 4칸 I (노랑) · 마지막으로 떨어짐 -->
+            <div class="stack-block stack-block--yellow" data-piece="2" style="--row: 2; --col: 4;"></div>
+            <div class="stack-block stack-block--yellow" data-piece="2" style="--row: 3; --col: 4;"></div>
+            <div class="stack-block stack-block--yellow" data-piece="2" style="--row: 4; --col: 4;"></div>
+            <div class="stack-block stack-block--yellow" data-piece="2" style="--row: 5; --col: 4;"></div>
+            <!-- piece 3: Strengths - L (민트) · 바닥, 좌우 뒤집힌 ㄴ (세로 오른쪽·발 왼쪽) -->
+            <div class="stack-block stack-block--mint" data-piece="3" style="--row: 4; --col: 5;"></div>
+            <div class="stack-block stack-block--mint" data-piece="3" style="--row: 5; --col: 5;"></div>
+            <div class="stack-block stack-block--mint" data-piece="3" style="--row: 6; --col: 5;"></div>
+            <div class="stack-block stack-block--mint" data-piece="3" style="--row: 6; --col: 4;"></div>
+          </div>
+          </aside>
+          <div class="mystory-scroll-spacer" aria-hidden="true"></div>
+        </div>
+
+        <main class="mystory-content" aria-label="MY STORY 콘텐츠">
+          <div class="mystory-content__inner">
+          <section class="mystory-section content-panel-wrap" data-section="0">
+            <div class="content-panel">
+              <h2 class="content-panel__title en">My Approach</h2>
+              <p class="content-panel__subtitle">부제목 예시</p>
+              <div class="content-panel__body">
+                <p>내용을 입력해 주세요.</p>
+              </div>
+            </div>
+          </section>
+          <section class="mystory-section content-panel-wrap" data-section="1">
+            <div class="content-panel">
+              <h2 class="content-panel__title en">How I Think</h2>
+              <p class="content-panel__subtitle">부제목 예시</p>
+              <div class="content-panel__body">
+                <p>내용을 입력해 주세요.</p>
+              </div>
+            </div>
+          </section>
+          <section class="mystory-section content-panel-wrap" data-section="2">
+            <div class="content-panel">
+              <h2 class="content-panel__title en">How I Work</h2>
+              <p class="content-panel__subtitle">부제목 예시</p>
+              <div class="content-panel__body">
+                <p>내용을 입력해 주세요.</p>
+              </div>
+            </div>
+          </section>
+          <section class="mystory-section content-panel-wrap" data-section="3">
+            <div class="content-panel">
+              <h2 class="content-panel__title en">Strengths</h2>
+              <p class="content-panel__subtitle">끝까지 완성하는 힘</p>
+              <div class="content-panel__body">
+                <p>작업을 하다 보면 이미 충분해 보이는데도 마음에 걸리는 부분이 생길 때가 있습니다. 디자인을 할 때 가장 몰입하게 되기 때문에, 작은 요소 하나도 쉽게 넘기지 못하는 편입니다. 그럴 때 그냥 넘기기보다는, 조금 더 나은 방향이 있는지 끝까지 고민하는 편입니다. 그 과정이 번거로울 수는 있지만, 결과물이 마음에 들지 않으면 스스로도 만족할 수 없다고 느낍니다. 담당자로부터 "디자인이 마음에 든다", "다음에도 함께 하고 싶다"는 말을 들을 때 그 선택이 틀리지 않았다고 느낍니다.</p>
+              </div>
+            </div>
+          </section>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="./assets/js/main.js"></script>
+  </body>
+</html>
