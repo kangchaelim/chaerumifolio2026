@@ -209,7 +209,7 @@ body {
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 10;
+  z-index: 21;
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
@@ -231,6 +231,7 @@ body {
 }
 
 .mystory-layout {
+  position: relative;
   display: flex;
   gap: 4rem;
   align-items: flex-start;
@@ -246,9 +247,9 @@ body {
 }
 
 .mystory-scroll-spacer {
-  height: 400vh;
   width: 1px;
   pointer-events: none;
+  /* height set in JS: (panels.length + 1) * 100vh */
 }
 
 .mystory-stack {
@@ -290,19 +291,19 @@ body {
 }
 
 .stack-block--yellow {
-  background-color: #e8c547;
+  background-color: #ffd731;
 }
 
 .stack-block--blue {
-  background-color: #7ec8e3;
+  background-color: #4da2ff;
 }
 
 .stack-block--orange {
-  background-color: #e89b5c;
+  background-color: #fb4903;
 }
 
 .stack-block--mint {
-  background-color: #7fe8b9;
+  background-color: #55db9c;
 }
 
 .mystory-content {
@@ -342,16 +343,17 @@ body {
 }
 
 .content-panel__title {
-  margin: 0 0 0.5em;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
+  margin: 0 0 0.35em;
+  font-size: clamp(5rem, 10vw, 8rem);
+  font-weight: 600;
   color: #555;
   line-height: 1.1;
+  white-space: nowrap;
 }
 
 .content-panel__subtitle {
   margin: 0 0 1em;
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-size: clamp(1.4rem, 2.8vw, 1.8rem);
   font-weight: 700;
   color: #fff;
 }
@@ -365,10 +367,40 @@ body {
 
 .content-panel__body p {
   margin: 0 0 1em;
+  word-break: break-all;
 }
 
 .content-panel__body p:last-child {
   margin-bottom: 0;
+}
+
+.mystory-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background-color: #0b0b0b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.mystory-fullscreen.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mystory-fullscreen__question {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.3;
+  text-align: center;
 }
 
 @media (max-width: 768px) {
