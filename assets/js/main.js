@@ -1,32 +1,181 @@
 document.addEventListener("DOMContentLoaded", function () {
   // ---------------------------------------------------------------------------
-  // Headline: 글자 단위 분할 후 올라오며 등장 (index)
+  // Masked text reveal (index headline + mystory panels)
   // ---------------------------------------------------------------------------
-  (function initHeadlineSplit() {
-    var headline = document.querySelector(".headline");
-    if (!headline || typeof gsap === "undefined") return;
-    var lineSpans = headline.querySelectorAll("span");
-    var allChars = [];
-    lineSpans.forEach(function (lineSpan) {
-      var text = lineSpan.textContent;
-      lineSpan.textContent = "";
-      for (var i = 0; i < text.length; i++) {
-        var charSpan = document.createElement("span");
-        charSpan.className = "headline-char";
-        charSpan.style.display = "inline-block";
-        charSpan.textContent = text[i];
-        lineSpan.appendChild(charSpan);
-        allChars.push(charSpan);
+  (function initReveal() {
+    if (typeof gsap === "undefined") return;
+
+    function wrapReveal(el) {
+      if (!el || !el.firstChild) return;
+      if (el.querySelector(".reveal")) return;
+      if (el.querySelector("img, svg, iframe")) return;
+      var wrap = document.createElement("span");
+      wrap.className = "reveal";
+      var inner = document.createElement("span");
+      inner.className = "reveal__inner";
+      while (el.firstChild) inner.appendChild(el.firstChild);
+      wrap.appendChild(inner);
+      el.appendChild(wrap);
+    }
+
+    var isSub = document.body.classList.contains("body--sub");
+
+    if (!isSub) {
+      var headline = document.querySelector(".headline");
+      if (headline) {
+        var lineSpans = [].filter.call(headline.childNodes, function (n) {
+          return n.nodeType === 1 && n.tagName === "SPAN";
+        });
+        lineSpans.forEach(wrapReveal);
+        var inners = headline.querySelectorAll(".reveal__inner");
+        if (inners.length && typeof ScrollTrigger !== "undefined") {
+          gsap.registerPlugin(ScrollTrigger);
+          gsap.set(inners, { y: "110%", opacity: 0 });
+          ScrollTrigger.create({
+            trigger: headline,
+            start: "top 80%",
+            onEnter: function () {
+              gsap.to(inners, {
+                y: 0,
+                opacity: 1,
+                duration: 0.85,
+                stagger: 0.06,
+                ease: "power3.out",
+              });
+            },
+          });
+        } else if (inners.length) {
+          gsap.set(inners, { y: "110%", opacity: 0 });
+          gsap.to(inners, {
+            y: 0,
+            opacity: 1,
+            duration: 0.85,
+            stagger: 0.06,
+            ease: "power3.out",
+          });
+        }
       }
-    });
-    if (allChars.length) {
-      gsap.from(allChars, {
-        y: 100,
-        autoAlpha: 0,
-        stagger: 0.05,
-        duration: 0.6,
-        ease: "power2.out",
+
+      var boardEl = document.querySelector(".board");
+      if (boardEl) {
+        var startY = typeof window !== "undefined" ? window.innerHeight : 800;
+        gsap.set(boardEl, { y: startY });
+        gsap.to(boardEl, {
+          y: 0,
+          duration: 1.1,
+          ease: "power3.out",
+        });
+      }
+    } else {
+      var panels = document.querySelectorAll(".mystory-section.content-panel-wrap");
+      var lastRevealedPanel = null;
+      panels.forEach(function (panel) {
+        var title = panel.querySelector(".content-panel__title");
+        var subtitle = panel.querySelector(".content-panel__subtitle");
+        var bodyParas = panel.querySelectorAll(".content-panel__body p");
+        if (title) wrapReveal(title);
+        if (subtitle) wrapReveal(subtitle);
+        bodyParas.forEach(wrapReveal);
       });
+
+      var fullscreen = document.querySelector(".mystory-fullscreen");
+      var fullscreenIntro = fullscreen ? fullscreen.querySelector(".mystory-fullscreen__intro") : null;
+      var fullscreenSequence = fullscreen ? fullscreen.querySelector(".mystory-fullscreen__sequence") : null;
+      var sequenceQuestionPs = fullscreen ? fullscreen.querySelectorAll(".mystory-fullscreen__question[data-step]") : [];
+      if (fullscreenIntro) wrapReveal(fullscreenIntro);
+      sequenceQuestionPs.forEach(wrapReveal);
+
+      var fullscreenRevealedIntro = false;
+      var lastRevealedSequenceP = null;
+
+      function runFullscreenReveal() {
+        if (!fullscreen || !gsap) return;
+        if (!fullscreen.classList.contains("is-visible")) {
+          fullscreenRevealedIntro = false;
+          lastRevealedSequenceP = null;
+          return;
+        }
+        if (fullscreenSequence && fullscreenSequence.classList.contains("is-visible")) {
+          fullscreenRevealedIntro = false;
+        }
+        if (fullscreenIntro && fullscreenIntro.style.display !== "none") {
+          if (!fullscreenRevealedIntro) {
+            fullscreenRevealedIntro = true;
+            var introInners = fullscreenIntro.querySelectorAll(".reveal__inner");
+            if (introInners.length) {
+              gsap.killTweensOf(introInners);
+              gsap.set(introInners, { y: "110%", opacity: 0 });
+              gsap.to(introInners, {
+                y: 0,
+                opacity: 1,
+                duration: 0.85,
+                stagger: 0.06,
+                ease: "power3.out",
+              });
+            }
+          }
+        } else {
+          fullscreenRevealedIntro = false;
+        }
+
+        if (fullscreenSequence && fullscreenSequence.classList.contains("is-visible")) {
+          var visibleP = fullscreenSequence.querySelector(".mystory-fullscreen__question.is-visible");
+          if (visibleP && visibleP !== lastRevealedSequenceP) {
+            lastRevealedSequenceP = visibleP;
+            var inners = visibleP.querySelectorAll(".reveal__inner");
+            if (inners.length) {
+              gsap.killTweensOf(inners);
+              gsap.set(inners, { y: "110%", opacity: 0 });
+              gsap.to(inners, {
+                y: 0,
+                opacity: 1,
+                duration: 0.85,
+                stagger: 0.06,
+                ease: "power3.out",
+              });
+            }
+          }
+        } else {
+          lastRevealedSequenceP = null;
+        }
+      }
+
+      function runMystoryReveal() {
+        var visible = document.querySelectorAll(".mystory-section.content-panel-wrap.is-visible");
+        var currentPanel = visible.length ? visible[0] : null;
+        if (!currentPanel) {
+          lastRevealedPanel = null;
+        } else if (currentPanel !== lastRevealedPanel) {
+          lastRevealedPanel = currentPanel;
+          var inners = currentPanel.querySelectorAll(".reveal__inner");
+          if (inners.length) {
+            gsap.killTweensOf(inners);
+            gsap.set(inners, { y: "110%", opacity: 0 });
+            gsap.to(inners, {
+              y: 0,
+              opacity: 1,
+              duration: 0.85,
+              stagger: 0.06,
+              ease: "power3.out",
+            });
+          }
+        }
+        runFullscreenReveal();
+      }
+
+      runMystoryReveal();
+      requestAnimationFrame(function () {
+        requestAnimationFrame(runMystoryReveal);
+      });
+      window.addEventListener(
+        "scroll",
+        function () {
+          requestAnimationFrame(function () {
+            requestAnimationFrame(runMystoryReveal);
+          });
+        },
+        { passive: true }
+      );
     }
   })();
 
@@ -59,10 +208,23 @@ document.addEventListener("DOMContentLoaded", function () {
     var spacer = layout.querySelector(".mystory-scroll-spacer");
     var currentStep = -1;
     var sectionHeight = typeof window !== "undefined" ? window.innerHeight : 800;
+    var dropDistance = typeof window !== "undefined" ? window.innerHeight : 800;
 
     if (spacer) {
-      spacer.style.height = (panels.length + 1) * 100 + "vh";
+      spacer.style.height = (panels.length + 1 + 3) * 100 + "vh";
     }
+
+    var introEl = fullscreen ? fullscreen.querySelector(".mystory-fullscreen__intro") : null;
+    var sequenceEl = fullscreen ? fullscreen.querySelector(".mystory-fullscreen__sequence") : null;
+    var questionParagraphs = fullscreen ? fullscreen.querySelectorAll(".mystory-fullscreen__question[data-step]") : [];
+    var photoImg = fullscreen ? fullscreen.querySelector(".mystory-photo__img") : null;
+    var fullscreenStepIndex = -1;
+
+    var fullscreenSteps = [
+      { img: "./assets/img/mystory/curious.png" },
+      { img: "./assets/img/mystory/positive.png" },
+      { img: "./assets/img/mystory/creative.png" },
+    ];
 
     function getBlocksByPiece(pieceIndex) {
       return Array.prototype.filter.call(blocks, function (b) {
@@ -76,10 +238,9 @@ document.addEventListener("DOMContentLoaded", function () {
       pieceBlocks.forEach(function (b) {
         b.classList.add("is-visible");
       });
-      gsap.set(pieceBlocks, { y: 0, autoAlpha: 1 });
+      gsap.set(pieceBlocks, { y: 0 });
       gsap.from(pieceBlocks, {
-        y: -180,
-        autoAlpha: 0,
+        y: -dropDistance,
         duration: 0.52,
         ease: "power3.out",
       });
@@ -89,8 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
       var pieceBlocks = getBlocksByPiece(pieceIndex);
       gsap.killTweensOf(pieceBlocks);
       gsap.to(pieceBlocks, {
-        y: -180,
-        autoAlpha: 0,
+        y: -dropDistance,
         duration: 0.42,
         delay: delay || 0,
         ease: "power3.in",
@@ -154,6 +314,43 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         fullscreen.style.opacity = showFullscreen ? 1 : 0;
         fullscreen.classList.toggle("is-visible", showFullscreen);
+
+        if (showFullscreen && introEl && sequenceEl && questionParagraphs.length && photoImg) {
+          var fullscreenStep = Math.floor((offset - fullscreenThreshold) / vh);
+          if (fullscreenStep === 0) {
+            introEl.style.display = "";
+            sequenceEl.classList.remove("is-visible");
+            fullscreenStepIndex = -1;
+          } else {
+            introEl.style.display = "none";
+            sequenceEl.classList.add("is-visible");
+            var stepIdx = Math.min(fullscreenStep - 1, fullscreenSteps.length - 1);
+            if (stepIdx >= 0) {
+              questionParagraphs.forEach(function (p, i) {
+                p.classList.toggle("is-visible", i === stepIdx);
+              });
+              if (stepIdx !== fullscreenStepIndex) {
+                var step = fullscreenSteps[stepIdx];
+                fullscreenStepIndex = stepIdx;
+                gsap.killTweensOf(photoImg);
+                gsap.set(photoImg, { opacity: 0, scale: 1.02 });
+                photoImg.src = step.img;
+                photoImg.alt = ["Curious", "Positive", "Creative"][stepIdx];
+                function animatePhotoIn() {
+                  photoImg.onload = null;
+                  gsap.to(photoImg, {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.5,
+                    ease: "power2.out",
+                  });
+                }
+                if (photoImg.complete) animatePhotoIn();
+                else photoImg.onload = animatePhotoIn;
+              }
+            }
+          }
+        }
       }
 
       if (sectionIndex !== currentStep) setStep(sectionIndex);
@@ -172,6 +369,24 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("resize", function () {
       requestAnimationFrame(updateMystory);
     });
+
+    var photoTiltWrap = photoImg && photoImg.parentElement && photoImg.parentElement.classList.contains("mystory-photo__tilt-wrap") ? photoImg.parentElement : null;
+    if (photoTiltWrap && typeof gsap !== "undefined") {
+      var tiltAmount = 12;
+      var rotX = gsap.quickTo(photoTiltWrap, "rotationX", { duration: 0.5, ease: "power2.out" });
+      var rotY = gsap.quickTo(photoTiltWrap, "rotationY", { duration: 0.5, ease: "power2.out" });
+      document.addEventListener("mousemove", function (e) {
+        if (!sequenceEl || !sequenceEl.classList.contains("is-visible")) {
+          rotX(0);
+          rotY(0);
+          return;
+        }
+        var x = (e.clientX / window.innerWidth - 0.5) * 2;
+        var y = (e.clientY / window.innerHeight - 0.5) * 2;
+        rotX(-y * tiltAmount);
+        rotY(x * tiltAmount);
+      });
+    }
   })();
 
   // ---------------------------------------------------------------------------
