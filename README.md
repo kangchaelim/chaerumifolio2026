@@ -1,22 +1,19 @@
-<<<<<<< HEAD
 # Chaerum Portfolio
 
-간단한 정적 포트폴리오 사이트입니다.
+2026 포트폴리오
 
 ## 구조
 
-- `index.html`: 메인 포트폴리오 페이지
-- `package.json`: 기본 npm 스크립트 정의
+- `index.html` — 메인 (보드 네비게이션)
+- `mystory.html` — MY STORY
+- `work.html` — Work
+- `menu.html` — 메뉴
+- `style/` — 공통 레이아웃 스타일
+- `assets/css/` — 폰트·페이지 스타일
+- `assets/js/` — 메인 스크립트 (GSAP 등)
+- `assets/img/` — 이미지 (mystory, work 등)
 
 ## 사용 방법
 
-```bash
-npm install
-npm run start
-```
-
-또는 단순히 파일을 브라우저에서 더블 클릭하여 `index.html`을 열어도 됩니다.
-
-=======
-# chaerumifolio2026
->>>>>>> 3cfe40160d9ea842901079896f4993af39574c2f
+- **간단히**: `index.html`을 브라우저에서 열기
+- **로컬 서버로 보기** (필요 시): `npx serve .` 또는 `npm run start`

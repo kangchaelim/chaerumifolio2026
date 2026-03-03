@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="./style/common.css" />
   <link rel="stylesheet" href="./assets/css/fonts.css" />
   <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="./assets/css/work.css" />
 </head>
 
 <body class="body--sub">
@@ -16,11 +17,121 @@
       <a href="index.html" class="mystory-menu-link">MENU -</a>
     </header>
 
-    <main class="layout-padding">
-    </main>
+    <div class="work-wrap layout-padding">
+      <!-- 블록은 pin 영향 밖에 두어 뷰포트 좌표 = 슬롯 좌표로 맞춤 -->
+      <div class="work-blocks" id="workBlocks" aria-hidden="true">
+        <span class="work-block work-block--red" id="blockRed"></span>
+        <span class="work-block work-block--yellow" id="blockYellow"></span>
+        <span class="work-block work-block--blue" id="blockBlue"></span>
+      </div>
+
+      <section class="work-hero" id="workHero">
+        <div class="work-hero__inner">
+          <nav class="work-tabs" aria-label="작업 카테고리">
+            <button type="button" class="work-tab" data-tab="web" aria-selected="true">
+              <span class="work-tab__slot" aria-hidden="true"></span>
+              <span class="work-tab__label en">WEB <sup>⁰¹</sup></span>
+            </button>
+            <button type="button" class="work-tab" data-tab="campaign" aria-selected="false">
+              <span class="work-tab__slot" aria-hidden="true"></span>
+              <span class="work-tab__label en">CAMPAIGN <sup>⁰²</sup></span>
+            </button>
+            <button type="button" class="work-tab" data-tab="experiments" aria-selected="false">
+              <span class="work-tab__slot" aria-hidden="true"></span>
+              <span class="work-tab__label en">EXPERIMENTS <sup>⁰³</sup></span>
+            </button>
+          </nav>
+        </div>
+      </section>
+
+      <!-- 작업물 섹션: 스크롤 시 WEB → CAMPAIGN → EXPERIMENTS 순으로 등장 -->
+      <div class="work-sections">
+        <section id="work-section-web" class="work-section work-section--web" aria-labelledby="work-section-web-title">
+          <header class="work-section__header">
+            <h2 id="work-section-web-title" class="work-section__title en">WEB <span class="work-section__num">⁰¹</span></h2>
+          </header>
+          <div class="work-section__grid">
+            <article class="work-section__card">
+              <a href="#" class="work-section__card-link">
+                <div class="work-section__card-img-wrap">
+                  <img src="https://placehold.co/800x600/1a1a1a/333" alt="" class="work-section__card-img" loading="lazy" width="800" height="600" />
+                </div>
+                <h3 class="work-section__card-title">환경 사랑 공모전 웹사이트</h3>
+                <p class="work-section__card-tag">Web UI Design Publishing</p>
+              </a>
+            </article>
+            <article class="work-section__card">
+              <a href="#" class="work-section__card-link">
+                <div class="work-section__card-img-wrap">
+                  <img src="https://placehold.co/800x600/1a1a1a/333" alt="" class="work-section__card-img" loading="lazy" width="800" height="600" />
+                </div>
+                <h3 class="work-section__card-title">환경 사랑 공모전 웹사이트</h3>
+                <p class="work-section__card-tag">Web UI Design Publishing</p>
+              </a>
+            </article>
+          </div>
+        </section>
+
+        <section id="work-section-campaign" class="work-section work-section--campaign" aria-labelledby="work-section-campaign-title">
+          <header class="work-section__header">
+            <h2 id="work-section-campaign-title" class="work-section__title en">CAMPAIGN <span class="work-section__num">⁰²</span></h2>
+          </header>
+          <div class="work-section__grid">
+            <article class="work-section__card">
+              <a href="#" class="work-section__card-link">
+                <div class="work-section__card-img-wrap">
+                  <img src="https://placehold.co/800x600/1a1a1a/333" alt="" class="work-section__card-img" loading="lazy" width="800" height="600" />
+                </div>
+                <h3 class="work-section__card-title">국제학교 GCIS 소개 웹사이트</h3>
+                <p class="work-section__card-tag">Campaign · Brand Website</p>
+              </a>
+            </article>
+            <article class="work-section__card">
+              <a href="#" class="work-section__card-link">
+                <div class="work-section__card-img-wrap">
+                  <img src="https://placehold.co/800x600/1a1a1a/333" alt="" class="work-section__card-img" loading="lazy" width="800" height="600" />
+                </div>
+                <h3 class="work-section__card-title">국제학교 GCIS 소개 웹사이트</h3>
+                <p class="work-section__card-tag">Campaign · Brand Website</p>
+              </a>
+            </article>
+          </div>
+        </section>
+
+        <section id="work-section-experiments" class="work-section work-section--experiments" aria-labelledby="work-section-experiments-title">
+          <header class="work-section__header">
+            <h2 id="work-section-experiments-title" class="work-section__title en">EXPERIMENTS <span class="work-section__num">⁰³</span></h2>
+          </header>
+          <div class="work-section__grid">
+            <article class="work-section__card">
+              <a href="#" class="work-section__card-link">
+                <div class="work-section__card-img-wrap">
+                  <img src="https://placehold.co/800x600/1a1a1a/333" alt="" class="work-section__card-img" loading="lazy" width="800" height="600" />
+                </div>
+                <h3 class="work-section__card-title">자사 회사 소개 웹사이트</h3>
+                <p class="work-section__card-tag">Experiments · UI Prototype</p>
+              </a>
+            </article>
+            <article class="work-section__card">
+              <a href="#" class="work-section__card-link">
+                <div class="work-section__card-img-wrap">
+                  <img src="https://placehold.co/800x600/1a1a1a/333" alt="" class="work-section__card-img" loading="lazy" width="800" height="600" />
+                </div>
+                <h3 class="work-section__card-title">자사 회사 소개 웹사이트</h3>
+                <p class="work-section__card-tag">Experiments · UI Prototype</p>
+              </a>
+            </article>
+          </div>
+        </section>
+      </div>
+    </div>
   </div>
 
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="./assets/js/main.js"></script>
+  <script src="./assets/js/work.js"></script>
 </body>
 
 </html>

@@ -179,9 +179,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   })();
 
-  // 서브페이지 공통: Lenis 스무스 스크롤 (body--sub 있을 때만)
+  // 서브페이지 공통: Lenis 스무스 스크롤 (body--sub 있을 때만, 모바일 제외)
   (function initLenisSubpage() {
     if (!document.body.classList.contains("body--sub") || typeof Lenis === "undefined") return;
+    if (window.matchMedia("(max-width: 768px)").matches) return;
     var lenis = new Lenis({
       duration: 1.15,
       easing: function (t) {
@@ -189,6 +190,10 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       smoothWheel: true,
     });
+    if (document.getElementById("workHero")) {
+      if (!window.__lenis) window.__lenis = lenis;
+      return;
+    }
     function lenisRaf(time) {
       lenis.raf(time);
       requestAnimationFrame(lenisRaf);
@@ -203,6 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var panels = document.querySelectorAll(".mystory-section.content-panel-wrap");
     if (!layout || !stackBoard || !panels.length || typeof gsap === "undefined") return;
 
+    var isMobile = window.matchMedia("(max-width: 768px)").matches;
     var blocks = stackBoard.querySelectorAll(".stack-block");
     var fullscreen = layout.querySelector(".mystory-fullscreen");
     var spacer = layout.querySelector(".mystory-scroll-spacer");
@@ -266,6 +272,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function setStep(step) {
       if (step === currentStep || step < 0) return;
+      if (isMobile) {
+        currentStep = step;
+        if (stackBoard) stackBoard.setAttribute("data-step", String(step));
+        return;
+      }
       if (step > currentStep) {
         for (var s = currentStep + 1; s <= step; s++) {
           revealPiece(sectionToPiece[s]);
@@ -387,6 +398,54 @@ document.addEventListener("DOMContentLoaded", function () {
         rotY(x * tiltAmount);
       });
     }
+  })();
+
+  // WORK: work-block 그룹이 스크롤 시 3등분 탭이 됨 (같은 data-category = 한 그룹)
+  (function initWorkPage() {
+    var layout = document.getElementById("workLayout");
+    if (!layout) return;
+
+    var blocksEl = document.getElementById("workBlocks");
+    var spacer = layout.querySelector(".work-scroll-spacer");
+    var groups = layout.querySelectorAll(".work-block-group");
+    var grids = layout.querySelectorAll(".work-grid");
+
+    if (!blocksEl || groups.length !== 3) return;
+
+    if (spacer) {
+      spacer.style.height = "80vh";
+    }
+
+    var scrollThreshold = typeof window !== "undefined" ? window.innerHeight * 0.35 : 280;
+
+    function updateWorkScroll() {
+      var y = window.pageYOffset || document.documentElement.scrollTop;
+      var layoutTop = layout.getBoundingClientRect().top + y;
+      var past = y > layoutTop + scrollThreshold;
+      layout.classList.toggle("is-scrolled", past);
+    }
+
+    updateWorkScroll();
+    window.addEventListener("scroll", function () {
+      requestAnimationFrame(updateWorkScroll);
+    }, { passive: true });
+    window.addEventListener("resize", function () {
+      scrollThreshold = window.innerHeight * 0.35;
+      requestAnimationFrame(updateWorkScroll);
+    });
+
+    groups.forEach(function (group) {
+      group.addEventListener("click", function () {
+        var cat = group.getAttribute("data-category");
+        groups.forEach(function (g) {
+          g.classList.toggle("is-active", g === group);
+          g.setAttribute("aria-selected", g === group ? "true" : "false");
+        });
+        grids.forEach(function (grid) {
+          grid.hidden = grid.getAttribute("data-category") !== cat;
+        });
+      });
+    });
   })();
 
   // ---------------------------------------------------------------------------

@@ -17,3 +17,21 @@ body {
 .layout-padding {
   padding-inline: 100px;
 }
+
+@media (max-width: 768px) {
+  .layout-padding {
+    padding-inline: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .layout-padding {
+    padding-inline: 24px;
+  }
+}
+
+@media (max-width: 375px) {
+  .layout-padding {
+    padding-inline: 20px;
+  }
+}
