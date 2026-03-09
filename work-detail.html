@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>작업물 · Chaerum Portfolio</title>
+  <link rel="stylesheet" href="./style/common.css" />
+  <link rel="stylesheet" href="./assets/css/fonts.css" />
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="./assets/css/work-detail.css" />
+</head>
+
+<body class="body--sub body--work-detail">
+  <div class="page page--sub">
+    <header class="page__header page__header--mystory work-detail__header-global">
+      <a href="index.html" class="mystory-menu-link">MENU -</a>
+    </header>
+
+    <div class="work-detail layout-padding" id="workDetail">
+      <!-- 왼쪽: 고정 설명·탭 메뉴 -->
+      <aside class="work-detail__left" id="workDetailLeft">
+        <a href="work.html" class="work-detail__back">← WORK</a>
+        <div class="work-detail__panel">
+          <h1 class="work-detail__title" id="workDetailTitle"></h1>
+          <p class="work-detail__desc-short" id="workDetailDescShort"></p>
+          <div class="work-detail__live-wrap">
+            <a href="#" class="work-detail__live-btn en" id="workDetailLive" target="_blank" rel="noopener noreferrer">Live Site</a>
+          </div>
+          <nav class="work-detail__accordion" aria-label="프로젝트 상세 메뉴">
+            <div class="work-detail__accordion-item">
+              <button type="button" class="work-detail__accordion-trigger" aria-expanded="false" aria-controls="work-detail-approach" id="workDetailTriggerApproach">
+                <span class="work-detail__accordion-title">My Approach</span>
+                <span class="work-detail__accordion-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="work-detail__accordion-panel" id="work-detail-approach" role="region" aria-labelledby="workDetailTriggerApproach">
+                <div class="work-detail__accordion-body" id="workDetailApproach"></div>
+              </div>
+            </div>
+            <div class="work-detail__accordion-item">
+              <button type="button" class="work-detail__accordion-trigger" aria-expanded="false" aria-controls="work-detail-info" id="workDetailTriggerInfo">
+                <span class="work-detail__accordion-title">Info</span>
+                <span class="work-detail__accordion-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="work-detail__accordion-panel" id="work-detail-info" role="region" aria-labelledby="workDetailTriggerInfo">
+                <div class="work-detail__accordion-body" id="workDetailInfo"></div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- 오른쪽: 스크롤되는 이미지 영역 -->
+      <div class="work-detail__right" id="workDetailRight">
+        <div class="work-detail__gallery" id="workDetailGallery"></div>
+      </div>
+
+      <p class="work-detail__not-found" id="workDetailNotFound" hidden>
+        해당 작업물을 찾을 수 없습니다. <a href="work.html">WORK 목록으로 돌아가기</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    (function () {
+      /* mystory와 동일한 GSAP 텍스트 리빌 (wrapReveal) */
+      function wrapReveal(el) {
+        if (!el || !el.firstChild) return;
+        if (el.querySelector(".reveal")) return;
+        var wrap = document.createElement("span");
+        wrap.className = "reveal";
+        var inner = document.createElement("span");
+        inner.className = "reveal__inner";
+        while (el.firstChild) inner.appendChild(el.firstChild);
+        wrap.appendChild(inner);
+        el.appendChild(wrap);
+      }
+
+      var data = {
+        "web-1": {
+          title: "환경 사랑 공모전 웹사이트",
+          descShort: "유아 교사를 위한 캠페인 참여형 웹사이트",
+          tag: "Web UI Design Publishing",
+          category: "WEB",
+          liveUrl: "https://www.kidkids.net/event/kid_green_dream_2025/index.html",
+          approach: "제5회 내가 GREEN DREAM 환경 공모전의 공식 웹사이트 디자인 및 퍼블리싱을 담당했습니다. 일러스트레이션과 그리드 레이아웃을 활용해 친환경 메시지를 전달하고, 접근성과 반응형을 고려해 제작했습니다.",
+          info: "Role: UI Design, Publishing\nClient: 키드키즈\nYear: 2025",
+          images: [
+            "https://placehold.co/1200x675/7cb342/1b5e20",
+            "https://placehold.co/600x400/e8f5e9/2e7d32",
+            "https://placehold.co/600x400/e8f5e9/2e7d32",
+            "https://placehold.co/600x400/e8f5e9/2e7d32",
+            "https://placehold.co/600x400/e8f5e9/2e7d32"
+          ]
+        },
+        "web-2": {
+          title: "환경 사랑 공모전 웹사이트",
+          descShort: "유아 교사를 위한 캠페인 참여형 웹사이트",
+          tag: "Web UI Design Publishing",
+          category: "WEB",
+          liveUrl: "https://www.kidkids.net/event/kid_green_dream_2025/index.html",
+          approach: "제5회 내가 GREEN DREAM 환경 공모전의 공식 웹사이트 디자인 및 퍼블리싱을 담당했습니다.",
+          info: "Role: UI Design\nYear: 2025",
+          images: [
+            "https://placehold.co/1200x675/1a1a1a/333",
+            "https://placehold.co/800x500/1a1a1a/333"
+          ]
+        },
+        "campaign-1": {
+          title: "국제학교 GCIS 소개 웹사이트",
+          descShort: "Pre-K through 12 브랜드 소개",
+          tag: "Campaign · Brand Website",
+          category: "CAMPAIGN",
+          liveUrl: "",
+          approach: "GCIS American Education 국제학교의 브랜드 소개 웹사이트를 기획·디자인했습니다.",
+          info: "Role: Design, Strategy\nClient: GCIS\nYear: 2025",
+          images: [
+            "https://placehold.co/1200x675/1a1a1a/333",
+            "https://placehold.co/800x500/1a1a1a/333"
+          ]
+        },
+        "campaign-2": {
+          title: "국제학교 GCIS 소개 웹사이트",
+          descShort: "Pre-K through 12 브랜드 소개",
+          tag: "Campaign · Brand Website",
+          category: "CAMPAIGN",
+          liveUrl: "",
+          approach: "GCIS American Education 국제학교의 브랜드 소개 웹사이트를 기획·디자인했습니다.",
+          info: "Role: Design\nYear: 2025",
+          images: [
+            "https://placehold.co/1200x675/1a1a1a/333"
+          ]
+        },
+        "experiments-1": {
+          title: "자사 회사 소개 웹사이트",
+          descShort: "이케이주식회사 KIDKIDS 프로토타입",
+          tag: "Experiments · UI Prototype",
+          category: "EXPERIMENTS",
+          liveUrl: "",
+          approach: "자사 소개 웹사이트 프로토타입입니다. UI 실험과 인터랙션을 적용했습니다.",
+          info: "Role: UI Design, Prototype\nYear: 2025",
+          images: [
+            "https://placehold.co/1200x675/1a1a1a/333",
+            "https://placehold.co/800x500/1a1a1a/333"
+          ]
+        },
+        "experiments-2": {
+          title: "자사 회사 소개 웹사이트",
+          descShort: "이케이주식회사 KIDKIDS 프로토타입",
+          tag: "Experiments · UI Prototype",
+          category: "EXPERIMENTS",
+          liveUrl: "",
+          approach: "자사 소개 웹사이트 프로토타입입니다.",
+          info: "Role: UI Design\nYear: 2025",
+          images: [
+            "https://placehold.co/1200x675/1a1a1a/333"
+          ]
+        }
+      };
+
+      var params = new URLSearchParams(window.location.search);
+      var id = params.get("id") || "";
+      var project = data[id];
+
+      var left = document.getElementById("workDetailLeft");
+      var right = document.getElementById("workDetailRight");
+      var notFound = document.getElementById("workDetailNotFound");
+
+      if (project) {
+        document.title = project.title + " · Chaerum Portfolio";
+        document.getElementById("workDetailTitle").textContent = project.title;
+        document.getElementById("workDetailDescShort").textContent = project.descShort || "";
+
+        var liveBtn = document.getElementById("workDetailLive");
+        if (project.liveUrl) {
+          liveBtn.href = project.liveUrl;
+          liveBtn.removeAttribute("aria-disabled");
+        } else {
+          liveBtn.href = "#";
+          liveBtn.setAttribute("aria-disabled", "true");
+        }
+
+        document.getElementById("workDetailApproach").innerHTML = "<p>" + (project.approach || "").replace(/\n/g, "</p><p>") + "</p>";
+        document.getElementById("workDetailInfo").innerHTML = "<p>" + (project.info || "").replace(/\n/g, "</p><p>") + "</p>";
+
+        var gallery = document.getElementById("workDetailGallery");
+        var imgs = project.images || [project.image];
+        if (!Array.isArray(imgs)) imgs = [imgs];
+        imgs.forEach(function (src, i) {
+          var wrap = document.createElement("div");
+          wrap.className = "work-detail__gallery-item" + (i === 0 ? " work-detail__gallery-item--hero" : "");
+          var img = document.createElement("img");
+          img.src = src;
+          img.alt = project.title + " " + (i + 1);
+          img.loading = i === 0 ? "eager" : "lazy";
+          img.width = i === 0 ? 1200 : 800;
+          img.height = i === 0 ? 675 : 500;
+          wrap.appendChild(img);
+          gallery.appendChild(wrap);
+        });
+
+        left.style.display = "";
+        right.style.display = "";
+        notFound.hidden = true;
+
+        /* GSAP 텍스트 리빌: 제목·한줄설명 (mystory와 동일한 y 110% → 0, stagger) */
+        var titleEl = document.getElementById("workDetailTitle");
+        var descShortEl = document.getElementById("workDetailDescShort");
+        wrapReveal(titleEl);
+        wrapReveal(descShortEl);
+        if (typeof gsap !== "undefined") {
+          var inners = left.querySelectorAll(".reveal__inner");
+          if (inners.length) {
+            gsap.set(inners, { y: "110%", opacity: 0 });
+            gsap.to(inners, {
+              y: 0,
+              opacity: 1,
+              duration: 0.85,
+              stagger: 0.06,
+              ease: "power3.out",
+            });
+          }
+          /* 버튼 자체 리빌 (제목·한줄설명과 동일한 효과, stagger 이어서) */
+          gsap.set(liveBtn, { y: "110%", opacity: 0 });
+          gsap.to(liveBtn, {
+            y: 0,
+            opacity: 1,
+            duration: 0.85,
+            delay: 0.12,
+            ease: "power3.out",
+          });
+        }
+
+        /* 아코디언: GSAP으로 열기/닫기 (height + opacity) */
+        document.querySelectorAll(".work-detail__accordion-trigger").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var expanded = this.getAttribute("aria-expanded") === "true";
+            var panel = document.getElementById(this.getAttribute("aria-controls"));
+            var body = panel ? panel.querySelector(".work-detail__accordion-body") : null;
+            var icon = this.querySelector(".work-detail__accordion-icon");
+
+            if (!panel || !body || typeof gsap === "undefined") {
+              this.setAttribute("aria-expanded", !expanded);
+              panel.classList.toggle("is-open", !expanded);
+              icon.textContent = expanded ? "+" : "−";
+              return;
+            }
+
+            if (expanded) {
+              /* 닫기 */
+              gsap.to(panel, { height: 0, duration: 0.32, ease: "power2.in" });
+              gsap.to(body, { opacity: 0, duration: 0.2 });
+              this.setAttribute("aria-expanded", "false");
+              panel.classList.remove("is-open");
+              icon.textContent = "+";
+              gsap.delayedCall(0.32, function () {
+                panel.style.height = "";
+              });
+            } else {
+              /* 열기: 실제 높이 측정 후 애니메이션 */
+              panel.style.height = "auto";
+              var h = panel.offsetHeight;
+              panel.style.height = "0";
+              gsap.set(body, { opacity: 0 });
+              this.setAttribute("aria-expanded", "true");
+              panel.classList.add("is-open");
+              icon.textContent = "−";
+              gsap.to(panel, { height: h, duration: 0.35, ease: "power2.out" });
+              gsap.to(body, { opacity: 1, duration: 0.28, delay: 0.06 });
+            }
+          });
+        });
+      } else {
+        left.style.display = "none";
+        right.style.display = "none";
+        notFound.hidden = false;
+      }
+    })();
+  </script>
+  <script src="./assets/js/main.js"></script>
+</body>
+
+</html>

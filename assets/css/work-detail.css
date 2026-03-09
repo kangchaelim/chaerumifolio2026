@@ -1,0 +1,331 @@
+/* ========== 작업물 상세: 왼쪽 고정(설명·탭) / 오른쪽 스크롤(이미지) ========== */
+.body--work-detail .page {
+  min-height: 100vh;
+  display: block;
+}
+
+.work-detail__header-global {
+  z-index: 10;
+}
+
+.work-detail {
+  display: flex;
+  gap: 4.5rem;
+  min-height: 100vh;
+  padding-top: 0;
+}
+
+.work-detail__left {
+  flex: 0 0 38%;
+  max-width: 540px;
+  padding: 2rem 0 4rem 0;
+  position: sticky;
+  bottom: 0;
+  align-self: flex-end;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.work-detail__right {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  padding: 2.5rem 0 4rem 0;
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* ========== 모바일: 세로 단일 컬럼 (상단 정보 → 갤러리) ========== */
+@media (max-width: 768px) {
+  .work-detail {
+    flex-direction: column;
+    gap: 0;
+    min-height: auto;
+  }
+
+  .work-detail__left {
+    flex: none;
+    max-width: none;
+    height: auto;
+    position: static;
+    padding: 3rem 0 2rem 0;
+    justify-content: flex-start;
+  }
+
+  .work-detail__back {
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+  }
+
+  .work-detail__title {
+    font-size: clamp(1.25rem, 5vw, 1.5rem);
+    margin-bottom: 0.35em;
+  }
+
+  .work-detail__desc-short {
+    margin-bottom: 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  .work-detail__live-wrap {
+    margin-bottom: 2rem;
+  }
+
+  .work-detail__right {
+    padding: 0 0 3rem 0;
+    background-color: transparent;
+  }
+
+  .work-detail__gallery {
+    gap: 1.5rem;
+  }
+
+  .work-detail__gallery-item,
+  .work-detail__gallery-item--hero {
+    border-radius: 10px;
+  }
+
+  .work-detail__accordion-trigger {
+    padding: 0.875rem 0;
+    font-size: 0.9rem;
+    min-height: 44px; /* 터치 영역 */
+  }
+
+  .work-detail__accordion-body {
+    font-size: 0.8125rem;
+    padding-bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .work-detail__left {
+    padding: 2.5rem 0 1.5rem 0;
+  }
+
+  .work-detail__back {
+    margin-bottom: 1.25rem;
+  }
+
+  .work-detail__title {
+    font-size: 1.25rem;
+  }
+
+  .work-detail__live-wrap {
+    margin-bottom: 1.5rem;
+  }
+
+  .work-detail__live-btn {
+    padding: 0.625rem 1.5rem;
+    font-size: 0.8125rem;
+  }
+
+  .work-detail__gallery {
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .work-detail__left {
+    padding: 2rem 0 1.25rem 0;
+  }
+
+  .work-detail__gallery-item,
+  .work-detail__gallery-item--hero {
+    border-radius: 8px;
+  }
+}
+
+/* 왼쪽 패널 */
+.work-detail__back {
+  display: inline-block;
+  margin-bottom: 2.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.work-detail__back:hover {
+  color: #fff;
+}
+
+.work-detail__panel {
+  max-width: 100%;
+}
+
+.work-detail__title {
+  margin: 0 0 0.5em;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  line-height: 1.3;
+  color: #fff;
+}
+
+.work-detail__desc-short {
+  margin: 0 0 1.5rem;
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.5;
+}
+
+.work-detail__live-wrap {
+  display: inline-block;
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+  pointer-events: none; /* 클릭/호버는 항상 내부 링크가 받도록 */
+}
+
+.work-detail__live-wrap .work-detail__live-btn {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.work-detail__live-btn {
+  display: inline-block;
+  margin-bottom: 0;
+  padding: 0.75rem 2rem;
+  background-color: #3d3d3d;
+  color: #fff;
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+.work-detail__live-btn:hover {
+  background-color: #4a4a4a;
+}
+
+.work-detail__live-btn[href="#"] {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* 아코디언 (My Approach, Info) */
+.work-detail__accordion {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.work-detail__accordion-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.work-detail__accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem 0;
+  background: none;
+  border: none;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  text-align: left;
+  transition: opacity 0.2s ease;
+}
+
+.work-detail__accordion-trigger:hover {
+  opacity: 0.85;
+}
+
+.work-detail__accordion-icon {
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* 아코디언: 높이·opacity는 GSAP으로 제어 (CSS 트랜지션 없음) */
+.work-detail__accordion-panel {
+  height: 0;
+  overflow: hidden;
+}
+
+.work-detail__accordion-panel.is-open {
+  /* height는 GSAP이 설정 */
+}
+
+.work-detail__accordion-body {
+  padding-bottom: 1.25rem;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.65;
+  opacity: 0;
+}
+
+.work-detail__accordion-panel.is-open .work-detail__accordion-body {
+  opacity: 1;
+}
+
+.work-detail__accordion-body p {
+  margin: 0 0 0.5em;
+}
+
+.work-detail__accordion-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* 오른쪽 갤러리 (스크롤되는 이미지) */
+.work-detail__gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.work-detail__gallery-item {
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #1a1a1a;
+}
+
+.work-detail__gallery-item--hero {
+  border-radius: 16px;
+}
+
+.work-detail__gallery-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  vertical-align: top;
+}
+
+/* 상단 이미지 1장은 크게, 그 아래 여러 장은 그리드(2열)로 배치 가능 */
+.work-detail__gallery-item--hero + .work-detail__gallery-item + .work-detail__gallery-item + .work-detail__gallery-item,
+.work-detail__gallery-item--hero + .work-detail__gallery-item + .work-detail__gallery-item + .work-detail__gallery-item + .work-detail__gallery-item {
+  /* 선택적으로 2열 그리드: .work-detail__gallery에 두 번째 행만 grid 적용하려면 JS로 wrap 추가 가능 */
+}
+
+@media (min-width: 769px) {
+  .work-detail__gallery-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* 없을 때 */
+.work-detail__not-found {
+  padding: 4rem 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+}
+
+.work-detail__not-found a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.work-detail__not-found a:hover {
+  opacity: 0.85;
+}
