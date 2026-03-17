@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INFO · Chaerum Portfolio</title>
+  <link rel="stylesheet" href="./style/common.css" />
+  <link rel="stylesheet" href="./assets/css/fonts.css" />
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="./assets/css/info.css" />
+</head>
+
+<body class="body--sub body--info">
+  <div class="page page--sub">
+    <header class="page__header page__header--mystory info__header">
+      <a href="index.html" class="mystory-menu-link">MENU -</a>
+    </header>
+
+    <main class="info layout-padding" aria-label="연락처 및 소개">
+      <div class="info__inner">
+        <p class="info__statement en">
+          I Crave Better Solutions And<br />
+          Chase Them All The Way To Execution.<br />
+          Let's Connect.
+        </p>
+        <div class="info__contact">
+          <p class="info__contact-line">
+            <a href="mailto:chaerumiii@naver.com">chaerumiii@naver.com</a>
+            <span class="info__contact-sep" aria-hidden="true">·</span>
+            <a href="mailto:kcl75597639@gmail.com">kcl75597639@gmail.com</a>
+          </p>
+          <p class="info__contact-line">
+            <a href="https://github.com/kangchaelim" target="_blank" rel="noopener noreferrer">https://github.com/kangchaelim</a>
+          </p>
+          <p class="info__contact-line">
+            <a href="https://velog.io/@chaerumi/posts" target="_blank" rel="noopener noreferrer">https://velog.io/@chaerumi/posts</a>
+          </p>
+          <p class="info__contact-line">
+            <a href="tel:01075597639">010.7559.7639</a>
+          </p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    (function () {
+      function wrapReveal(el) {
+        if (!el || !el.firstChild) return;
+        if (el.querySelector(".reveal")) return;
+        var wrap = document.createElement("span");
+        wrap.className = "reveal";
+        var inner = document.createElement("span");
+        inner.className = "reveal__inner";
+        while (el.firstChild) inner.appendChild(el.firstChild);
+        wrap.appendChild(inner);
+        el.appendChild(wrap);
+      }
+
+      var inner = document.querySelector(".info__inner");
+      if (!inner) return;
+
+      var statement = inner.querySelector(".info__statement");
+      if (statement) wrapReveal(statement);
+
+      inner.querySelectorAll(".info__contact-line").forEach(function (line) {
+        wrapReveal(line);
+      });
+
+      if (typeof gsap !== "undefined") {
+        var inners = inner.querySelectorAll(".reveal__inner");
+        if (inners.length) {
+          gsap.set(inners, { y: "110%", opacity: 0 });
+          gsap.to(inners, {
+            y: 0,
+            opacity: 1,
+            duration: 0.85,
+            stagger: 0.06,
+            ease: "power3.out",
+          });
+        }
+      }
+    })();
+  </script>
+  <script src="./assets/js/main.js"></script>
+</body>
+
+</html>

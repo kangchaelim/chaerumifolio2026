@@ -50,7 +50,7 @@
   var tabLabels = document.querySelectorAll(".work-tab__label");
 
   var blockSize = 0;
-  var gap = 6;
+  var gap = 8;
 
   function getBlockSize() {
     if (blockRed) {

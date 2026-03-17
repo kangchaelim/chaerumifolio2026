@@ -303,11 +303,11 @@ html:has(body.body--sub) {
 
 .work-blocks {
   --block-size: clamp(72px, 12vw, 120px);
-  width: calc(var(--block-size) * 3 + 6px * 2);
+  width: calc(var(--block-size) * 3 + 8px * 2);
   display: grid;
   grid-template-columns: repeat(3, var(--block-size));
   grid-template-rows: repeat(3, var(--block-size));
-  gap: 6px;
+  gap: 8px;
   border-radius: 12px;
   overflow: visible;
 }
@@ -330,7 +330,7 @@ html:has(body.body--sub) {
 
 .work-block-group--web .work-block-group__blocks {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   height: 100%;
 }
 
@@ -347,7 +347,7 @@ html:has(body.body--sub) {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 6px;
+  gap: 8px;
   height: 100%;
 }
 
@@ -365,7 +365,7 @@ html:has(body.body--sub) {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 6px;
+  gap: 8px;
   height: 100%;
 }
 

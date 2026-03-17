@@ -1,0 +1,97 @@
+/* ========== INFO: 다크 배경, 중앙 정렬 문구 + 연락처 ========== */
+.body--info .page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #000;
+}
+
+.info__header {
+  z-index: 10;
+}
+
+.info__header .mystory-menu-link {
+  color: #fff;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 4rem);
+  padding: 4rem 0 3rem;
+  box-sizing: border-box;
+}
+
+.info__inner {
+  width: 100%;
+  max-width: 64rem;
+  text-align: center;
+}
+
+.info__statement {
+  margin: 0 0 3rem;
+  font-size: clamp(1.5rem, 4.5vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+.info__contact {
+  margin: 0;
+  font-size: 1rem;
+  color: #fff;
+  line-height: 1.8;
+}
+
+.info__contact-line {
+  margin: 0 0 0.5em;
+}
+
+.info__contact-line:last-child {
+  margin-bottom: 0;
+}
+
+.info__contact-line a {
+  color: #fff;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.info__contact-line a:hover {
+  opacity: 0.8;
+}
+
+.info__contact-sep {
+  margin: 0 0.5em;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .info {
+    min-height: calc(100vh - 3.5rem);
+    padding: 3rem 0 2.5rem;
+  }
+
+  .info__statement {
+    margin-bottom: 2.5rem;
+    font-size: clamp(1.375rem, 5vw, 1.75rem);
+  }
+
+  .info__contact {
+    font-size: 0.9375rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .info__statement {
+    margin-bottom: 2rem;
+  }
+
+  .info__contact-line {
+    word-break: break-all;
+  }
+}
